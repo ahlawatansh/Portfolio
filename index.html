@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansh's Portfolio</title>
+  <meta name="description" content="Portfolio of Ansh Ahlawat — B.Tech CSE (AI) student at VIT Vellore, Software Engineer, UI/UX Designer & Frontend Developer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/sections.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/device-gate.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- Device Gate — screens below 1026px -->
+  <div class="device-gate" id="deviceGate">
+    <!-- Animated floating particles -->
+    <div class="dg-particles">
+      <div class="dg-particle dg-particle--1"></div>
+      <div class="dg-particle dg-particle--2"></div>
+      <div class="dg-particle dg-particle--3"></div>
+      <div class="dg-particle dg-particle--4"></div>
+      <div class="dg-particle dg-particle--5"></div>
+      <div class="dg-particle dg-particle--6"></div>
+      <div class="dg-particle dg-particle--7"></div>
+      <div class="dg-particle dg-particle--8"></div>
+    </div>
+
+    <!-- 3D rotating device icon -->
+    <div class="dg-scene">
+      <div class="dg-cube">
+        <div class="dg-cube__face dg-cube__face--front">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="12" width="64" height="44" rx="3"/>
+            <line x1="8" y1="50" x2="72" y2="50"/>
+            <path d="M24 56h32"/>
+            <path d="M28 60h24"/>
+          </svg>
+        </div>
+        <div class="dg-cube__face dg-cube__face--back">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="16" y="8" width="48" height="64" rx="3"/>
+            <line x1="16" y1="16" x2="64" y2="16"/>
+            <line x1="16" y1="60" x2="64" y2="60"/>
+            <circle cx="40" cy="66" r="2"/>
+          </svg>
+        </div>
+        <div class="dg-cube__face dg-cube__face--right">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="8" y="12" width="64" height="44" rx="3"/>
+            <line x1="8" y1="50" x2="72" y2="50"/>
+            <path d="M24 56h32"/>
+          </svg>
+        </div>
+        <div class="dg-cube__face dg-cube__face--left">
+          <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="16" y="8" width="48" height="64" rx="3"/>
+            <line x1="16" y1="16" x2="64" y2="16"/>
+            <line x1="16" y1="60" x2="64" y2="60"/>
+          </svg>
+        </div>
+        <div class="dg-cube__face dg-cube__face--top"></div>
+        <div class="dg-cube__face dg-cube__face--bottom"></div>
+      </div>
+    </div>
+
+    <!-- Glassmorphism message card -->
+    <div class="dg-card">
+      <div class="dg-card__glow"></div>
+      <h2 class="dg-card__title">Desktop Experience <span class="dg-card__accent">Required</span></h2>
+      <p class="dg-card__desc">This portfolio is designed for an immersive, cinematic experience best enjoyed on larger screens.</p>
+      <div class="dg-card__divider"></div>
+      <p class="dg-card__hint">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Please switch to a <strong>laptop</strong> or <strong>tablet</strong>
+      </p>
+    </div>
+
+    <!-- Animated bottom rings -->
+    <div class="dg-rings">
+      <div class="dg-ring dg-ring--1"></div>
+      <div class="dg-ring dg-ring--2"></div>
+      <div class="dg-ring dg-ring--3"></div>
+    </div>
+
+    <!-- Branding -->
+    <div class="dg-branding">
+      <button class="dg-branding__text" id="dgProceedBtn">Proceed in Mobile</button>
+    </div>
+  </div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__text"><span>A</span><span>N</span><span>S</span><span>H</span></div>
+    <div class="preloader__bar"><div class="preloader__bar-fill" id="preloaderFill"></div></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <canvas class="custom-cursor" id="customCursor"></canvas>
+
+  <!-- Scroll Ring -->
+  <svg class="scroll-ring" id="scrollRing" viewBox="0 0 50 50">
+    <circle class="scroll-ring__bg" cx="25" cy="25" r="20"/>
+    <circle class="scroll-ring__progress" id="scrollRingProgress" cx="25" cy="25" r="20" stroke-dasharray="125.66" stroke-dashoffset="125.66" transform="rotate(-90 25 25)"/>
+  </svg>
+
+  <!-- Availability Badge -->
+  <div class="availability-ring">
+    <div class="availability-ring__dot"></div>
+    <span class="availability-ring__text">Open to Internships</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo" id="navLogo"><span class="dot"></span>ANSH</a>
+    <div class="nav__links">
+      <a href="#hero" class="nav__link nav__link--active" data-section="hero">Home</a>
+      <a href="#about" class="nav__link" data-section="about">About</a>
+      <a href="#skills" class="nav__link" data-section="skills">Skills</a>
+      <a href="#experience" class="nav__link" data-section="experience">Experience</a>
+      <a href="#projects" class="nav__link" data-section="projects">Projects</a>
+      <a href="#contact" class="nav__link" data-section="contact">Contact</a>
+    </div>
+    <div class="nav__actions">
+      <a href="https://drive.google.com/uc?export=download&id=1kLACuK6tfnmUCO3T0U_ikNnYqj7c3Tbf" class="btn-outline btn-outline--no-border" style="padding:0.5rem 1rem;font-size:0.8rem" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav-overlay" id="mobileNav">
+    <a href="#about" class="nav__link" data-mobile-link>About</a>
+    <a href="#skills" class="nav__link" data-mobile-link>Skills</a>
+    <a href="#experience" class="nav__link" data-mobile-link>Experience</a>
+    <a href="#projects" class="nav__link" data-mobile-link>Projects</a>
+    <a href="#contact" class="nav__link" data-mobile-link>Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="section" id="hero" data-cursor="dot">
+    <canvas id="hero-canvas"></canvas>
+    <!-- Floating Background Circles -->
+    <div class="hero__bg-circles">
+      <div class="hero__circle hero__circle--1"></div>
+      <div class="hero__circle hero__circle--2"></div>
+      <div class="hero__circle hero__circle--3"></div>
+      <div class="hero__circle hero__circle--4"></div>
+      <div class="hero__circle hero__circle--5"></div>
+      <div class="hero__circle hero__circle--6"></div>
+    </div>
+    <div class="hero__split container">
+      <!-- Left: Text Content -->
+      <div class="hero__text-side" id="heroTopText">
+        <div class="hero__hello-badge" id="heroBadge">
+          Hello!
+        </div>
+        <h1 class="hero__name" id="heroTitle">
+          I am <span class="text-accent">Ansh Ahlawat</span>
+        </h1>
+        <p class="hero__subtitle">Aspiring Software Engineer</p>
+      </div>
+      <!-- Right: Photo -->
+      <div class="hero__photo-side" id="heroImage">
+        <div class="hero__image-wrapper">
+          <img src="assets/headshot-circle.png" alt="Ansh Ahlawat" class="hero__headshot">
+        </div>
+        <div class="hero__experience-badge hero__experience-badge--top" id="heroExpBadge">
+          <span class="hero__exp-number">9.1</span>
+          <span class="hero__exp-label">CGPA</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll-hint" id="scrollHint">
+      <span class="text-label" style="font-size:0.6rem">Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about" data-cursor="pointer">
+    <div class="section-bg-grid"></div>
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__text-block">
+          <p class="text-label section-label">About Me</p>
+          <h2 class="text-display">Crafting digital<br><span class="text-accent">experiences</span> that matter</h2>
+          <p class="text-body about__bio">
+            I'm a second-year B.Tech Computer Science and Engineering (AI) student at VIT Vellore with a 9.1 CGPA. My primary goal is to become a skilled Software Engineer — I love building real products that solve problems. Alongside engineering, I bring a strong design sensibility from my experience in UI/UX, graphic design, and brand identity work. This dual perspective lets me build software that's not just functional, but beautifully crafted.
+          </p>
+          <div class="about__tools">
+            <span class="about__tool-tag">JavaScript</span>
+            <span class="about__tool-tag">HTML / CSS</span>
+            <span class="about__tool-tag">React</span>
+            <span class="about__tool-tag">Figma</span>
+            <span class="about__tool-tag">Adobe XD</span>
+            <span class="about__tool-tag">Canva</span>
+            <span class="about__tool-tag">Git</span>
+            <span class="about__tool-tag">Python</span>
+          </div>
+        </div>
+        <div class="about__stats-card glass-card">
+          <p class="text-label section-label">Quick Stats</p>
+          <div class="about__stats-grid">
+            <div class="about__stat"><div class="about__stat-value">9.1</div><div class="about__stat-label">CGPA</div></div>
+            <div class="about__stat"><div class="about__stat-value">3+</div><div class="about__stat-label">Internships</div></div>
+            <div class="about__stat"><div class="about__stat-value">3+</div><div class="about__stat-label">Projects</div></div>
+            <div class="about__stat"><div class="about__stat-value">2028</div><div class="about__stat-label">Graduating</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills" data-cursor="figma">
+    <div class="radar-bg-glow"></div>
+    <div class="container">
+      <div class="skills__header">
+        <p class="text-label section-label">Skills</p>
+        <h2 class="text-display">Skill <span class="text-accent">Spectrum</span></h2>
+        <p class="text-body" style="margin-top:1rem;color:var(--offwhite-dim);max-width:500px;margin-left:auto;margin-right:auto">A visual map of my design & development capabilities</p>
+      </div>
+      <div class="radar-wrapper">
+        <div class="radar-stat-pill radar-pill-1">9.1 CGPA</div>
+        <div class="radar-stat-pill radar-pill-2">3+ Internships</div>
+        <div class="radar-stat-pill radar-pill-3">12 Skills Mapped</div>
+        <div id="radar-chart-container" class="radar-chart-container"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience" data-cursor="pointer">
+    <div class="section-bg-grid"></div>
+    <div class="container">
+      <div class="experience__header">
+        <p class="text-label section-label">Experience</p>
+        <h2 class="text-display">Where I've <span class="text-accent">worked</span></h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__company">Ranam Business Consultants LTD</div>
+            <div class="timeline__role">Content Design Intern</div>
+            <div class="timeline__location">Cardiff, UK · Remote</div>
+            <div class="timeline__date-inline">Jun 2025 — Jul 2025</div>
+            <p class="timeline__desc">Worked on creating and refining digital content and graphics for business communications, ensuring brand consistency and visual clarity across materials while collaborating remotely with a cross-functional team.</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__company">Aarvasa</div>
+            <div class="timeline__role">Graphic Design Intern</div>
+            <div class="timeline__location">Bhopal, India · Remote</div>
+            <div class="timeline__date-inline">Jun 2025 — Jul 2025</div>
+            <p class="timeline__desc">Contributed to designing promotional materials, social media creatives, and event posters using Canva and Figma, enhancing the organization's visual branding and improving teamwork and creative execution skills.</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__dot"></div>
+          <div class="timeline__card">
+            <div class="timeline__company">GAOTek Inc.</div>
+            <div class="timeline__role">Graphic Design Intern</div>
+            <div class="timeline__location">New York, USA · Remote</div>
+            <div class="timeline__date-inline">Jun 2025</div>
+            <p class="timeline__desc">Assisted in developing marketing visuals and infographics for global campaigns, focusing on visual coherence, accessibility, and maintaining design quality while collaborating within an international remote team.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects" data-cursor="pointer">
+    <div class="container">
+      <div class="projects__header">
+        <p class="text-label section-label">Projects</p>
+        <h2 class="text-display">My <span class="text-accent">Projects</span></h2>
+      </div>
+      <div class="projects__carousel-wrapper">
+        <div class="projects__carousel" id="projectsCarousel">
+
+          <!-- Smart Expense Tracker -->
+          <div class="project-card">
+
+            <div class="project-card__info">
+              <div class="project-card__type">Web Application · Dev Project</div>
+              <h3 class="project-card__title">Smart Expense Tracker</h3>
+              <p class="project-card__desc">A secure finance utility for tracking expenses with category management, budget monitoring, and transaction history. Built with HTML, CSS, and JavaScript.</p>
+              <div class="project-card__tags"><span class="project-card__tag">HTML</span><span class="project-card__tag">CSS</span><span class="project-card__tag">JavaScript</span><span class="project-card__tag">Finance</span></div>
+              <a href="https://ahlawatansh.github.io/expense-tracker/" target="_blank" rel="noopener" class="project-card__link">View Live <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+          <!-- Pulse 360 -->
+          <div class="project-card">
+
+            <div class="project-card__info">
+              <div class="project-card__type">Figma · UI/UX Design</div>
+              <h3 class="project-card__title">Pulse 360</h3>
+              <p class="project-card__desc">A high-fidelity Figma prototype for a health tracking app combining fitness tracking, heart-rate monitoring, and intuitive navigation — refined through user feedback.</p>
+              <div class="project-card__tags"><span class="project-card__tag">Figma</span><span class="project-card__tag">UI/UX</span><span class="project-card__tag">Prototyping</span><span class="project-card__tag">Health</span></div>
+              <a href="https://www.figma.com/community/file/1508764915800616109" target="_blank" rel="noopener" class="project-card__link">View on Figma <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+          <!-- SkyMate -->
+          <div class="project-card">
+
+            <div class="project-card__info">
+              <div class="project-card__type">Figma · UI/UX Design</div>
+              <h3 class="project-card__title">SkyMate</h3>
+              <p class="project-card__desc">A responsive weather tracking app with real-time updates, multi-city tracking, and 5-day forecasts. Focused on clean UI layout, accessibility, and user-friendly interaction flow.</p>
+              <div class="project-card__tags"><span class="project-card__tag">Figma</span><span class="project-card__tag">UI/UX</span><span class="project-card__tag">Responsive</span><span class="project-card__tag">Weather</span></div>
+              <a href="https://www.figma.com/community/file/1513472861192096906" target="_blank" rel="noopener" class="project-card__link">View on Figma <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+          <!-- Placeholder Glass Card 2 -->
+          <div class="project-card project-card--placeholder">
+            <div class="project-card__placeholder-inner">
+              <div class="project-card__placeholder-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              </div>
+              <h3 class="project-card__placeholder-title">Coming Soon</h3>
+              <p class="project-card__placeholder-desc">Another project on the way</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact" data-cursor="at">
+    <canvas class="contact-particles" id="contactParticles"></canvas>
+    <div class="contact__inner container">
+      <div class="contact__grid">
+        <!-- Left: Info Side -->
+        <div class="contact__info-side">
+          <p class="text-label section-label">Contact</p>
+          <h2 class="text-display">Let's <span class="text-accent">connect</span></h2>
+          <p class="contact__subtitle">Got a project in mind or just want to say hi? I'd love to hear from you.</p>
+          <div class="contact__cards-grid">
+            <a href="mailto:anshahlawat555@gmail.com" class="contact__card">
+              <div class="contact__card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div class="contact__card-title">Email</div>
+              <div class="contact__card-value">anshahlawat555@gmail.com</div>
+            </a>
+            <a href="https://www.linkedin.com/in/anshahlawat/" target="_blank" rel="noopener" class="contact__card">
+              <div class="contact__card-icon contact__card-icon--blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              </div>
+              <div class="contact__card-title">LinkedIn</div>
+              <div class="contact__card-value">anshahlawat</div>
+            </a>
+            <a href="https://github.com/ahlawatansh" target="_blank" rel="noopener" class="contact__card">
+              <div class="contact__card-icon contact__card-icon--green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+              </div>
+              <div class="contact__card-title">GitHub</div>
+              <div class="contact__card-value">ahlawatansh</div>
+            </a>
+            <div class="contact__card">
+              <div class="contact__card-icon contact__card-icon--orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="contact__card-title">Location</div>
+              <div class="contact__card-value">Rohtak, Haryana, India</div>
+            </div>
+          </div>
+        </div>
+        <!-- Right: Form Side -->
+        <div class="contact__form-side">
+          <form class="contact__form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" placeholder="Enter your email address" required>
+            </div>
+            <div class="form-group">
+              <label for="message">About your inquiry</label>
+              <textarea id="message" placeholder="Enter your message" required></textarea>
+            </div>
+            <button type="submit" class="contact__submit-btn">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fixed Bottom Glassmorphism Dock -->
+  <div class="bottom-dock" id="bottomDock">
+    <a href="#projects" class="bottom-dock__btn bottom-dock__btn--portfolio">
+      Portfolio <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+    </a>
+    <div class="bottom-dock__divider"></div>
+    <a href="#contact" class="bottom-dock__btn bottom-dock__btn--hire">
+      Hire Me
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer__text">© 2025 Ansh Ahlawat · Designed & Built with passion</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/device-gate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/cursor.js"></script>
+  <script type="module" src="js/hero.js"></script>
+  <script src="js/skills.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+/* =========================================
+   DEVICE GATE — Small Screen Blocker
+   ========================================= */
+
+/* --- Gate Container --- */
+.device-gate {
+  display: none; /* hidden by default, JS toggles via class */
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5rem;
+  background: radial-gradient(ellipse at 30% 20%, rgba(221, 14, 63, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(221, 14, 63, 0.08) 0%, transparent 50%),
+              var(--black, #080810);
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.device-gate.active {
+  display: flex;
+}
+
+/* When gate is active, hide everything behind it */
+body.device-gate-active {
+  overflow: hidden;
+}
+
+/* =========================================
+   FLOATING PARTICLES
+   ========================================= */
+
+.dg-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dg-particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: dgParticleFloat 8s ease-in-out infinite;
+}
+
+.dg-particle--1 {
+  width: 6px; height: 6px;
+  background: rgba(221, 14, 63, 0.6);
+  top: 10%; left: 15%;
+  animation-delay: 0s;
+  animation-duration: 7s;
+}
+.dg-particle--2 {
+  width: 4px; height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  top: 25%; left: 80%;
+  animation-delay: 1s;
+  animation-duration: 9s;
+}
+.dg-particle--3 {
+  width: 8px; height: 8px;
+  background: rgba(221, 14, 63, 0.4);
+  top: 60%; left: 10%;
+  animation-delay: 2s;
+  animation-duration: 6s;
+}
+.dg-particle--4 {
+  width: 3px; height: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  top: 80%; left: 70%;
+  animation-delay: 0.5s;
+  animation-duration: 10s;
+}
+.dg-particle--5 {
+  width: 5px; height: 5px;
+  background: rgba(221, 14, 63, 0.5);
+  top: 40%; left: 90%;
+  animation-delay: 3s;
+  animation-duration: 8s;
+}
+.dg-particle--6 {
+  width: 7px; height: 7px;
+  background: rgba(255, 255, 255, 0.2);
+  top: 70%; left: 30%;
+  animation-delay: 1.5s;
+  animation-duration: 11s;
+}
+.dg-particle--7 {
+  width: 4px; height: 4px;
+  background: rgba(221, 14, 63, 0.7);
+  top: 15%; left: 55%;
+  animation-delay: 4s;
+  animation-duration: 7.5s;
+}
+.dg-particle--8 {
+  width: 6px; height: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  top: 50%; left: 45%;
+  animation-delay: 2.5s;
+  animation-duration: 9.5s;
+}
+
+@keyframes dgParticleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-60px) translateX(30px) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) translateX(-20px) scale(0.3);
+  }
+}
+
+/* =========================================
+   3D ROTATING CUBE (Device Icon)
+   ========================================= */
+
+.dg-scene {
+  width: 120px;
+  height: 120px;
+  perspective: 600px;
+  animation: dgSceneEntry 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.dg-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: dgCubeRotate 12s ease-in-out infinite;
+}
+
+.dg-cube__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: 1px solid rgba(221, 14, 63, 0.2);
+  background: rgba(221, 14, 63, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(221, 14, 63, 0.8);
+}
+
+.dg-cube__face svg {
+  width: 60px;
+  height: 60px;
+}
+
+.dg-cube__face--front  { transform: translateZ(60px); }
+.dg-cube__face--back   { transform: rotateY(180deg) translateZ(60px); }
+.dg-cube__face--right  { transform: rotateY(90deg) translateZ(60px); }
+.dg-cube__face--left   { transform: rotateY(-90deg) translateZ(60px); }
+.dg-cube__face--top    { transform: rotateX(90deg) translateZ(60px); background: rgba(221, 14, 63, 0.03); }
+.dg-cube__face--bottom { transform: rotateX(-90deg) translateZ(60px); background: rgba(221, 14, 63, 0.03); }
+
+@keyframes dgCubeRotate {
+  0%   { transform: rotateX(-15deg) rotateY(0deg); }
+  25%  { transform: rotateX(5deg) rotateY(90deg); }
+  50%  { transform: rotateX(-10deg) rotateY(180deg); }
+  75%  { transform: rotateX(5deg) rotateY(270deg); }
+  100% { transform: rotateX(-15deg) rotateY(360deg); }
+}
+
+@keyframes dgSceneEntry {
+  from {
+    opacity: 0;
+    transform: scale(0.5) rotateX(30deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+  }
+}
+
+/* =========================================
+   GLASSMORPHISM MESSAGE CARD
+   ========================================= */
+
+.dg-card {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  padding: 2rem 2.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  text-align: center;
+  animation: dgCardEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+  overflow: hidden;
+}
+
+.dg-card__glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(221, 14, 63, 0.12) 0%, transparent 60%);
+  animation: dgGlowPulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.dg-card__title {
+  font-family: 'Clash Display', 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 5vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  color: #F0EEE8;
+  position: relative;
+  z-index: 1;
+}
+
+.dg-card__accent {
+  color: #DD0E3F;
+  text-shadow: 0 0 30px rgba(221, 14, 63, 0.5);
+}
+
+.dg-card__desc {
+  font-family: 'Instrument Sans', 'DM Sans', sans-serif;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  line-height: 1.7;
+  color: rgba(240, 238, 232, 0.6);
+  position: relative;
+  z-index: 1;
+}
+
+.dg-card__divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(221, 14, 63, 0.5), transparent);
+  margin: 1.25rem auto;
+  position: relative;
+  z-index: 1;
+}
+
+.dg-card__hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
+  color: rgba(240, 238, 232, 0.5);
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+.dg-card__hint svg {
+  color: #DD0E3F;
+  flex-shrink: 0;
+}
+
+.dg-card__hint strong {
+  color: #F0EEE8;
+  font-weight: 600;
+}
+
+@keyframes dgCardEntry {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dgGlowPulse {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(10%, -10%);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   EXPANDING RINGS
+   ========================================= */
+
+.dg-rings {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.dg-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(221, 14, 63, 0.15);
+  animation: dgRingExpand 6s ease-out infinite;
+}
+
+.dg-ring--1 {
+  width: 200px; height: 200px;
+  top: -100px; left: -100px;
+  animation-delay: 0s;
+}
+.dg-ring--2 {
+  width: 350px; height: 350px;
+  top: -175px; left: -175px;
+  animation-delay: 2s;
+}
+.dg-ring--3 {
+  width: 500px; height: 500px;
+  top: -250px; left: -250px;
+  animation-delay: 4s;
+}
+
+@keyframes dgRingExpand {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   BRANDING
+   ========================================= */
+
+.dg-branding {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  animation: dgBrandEntry 0.6s ease-out 1.2s both;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Proceed button with subtle shimmer */
+.dg-branding__text {
+  font-family: 'Clash Display', 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: rgba(240, 238, 232, 0.6);
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    rgba(240, 238, 232, 0.55) 0%,
+    rgba(240, 238, 232, 0.55) 42%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(240, 238, 232, 0.55) 58%,
+    rgba(240, 238, 232, 0.55) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: dgTextShimmer 3s ease-in-out infinite;
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  transition: all 0.3s ease;
+}
+
+.dg-branding__text:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(240, 238, 232, 0.5) 0%,
+    rgba(240, 238, 232, 0.5) 42%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(240, 238, 232, 0.5) 58%,
+    rgba(240, 238, 232, 0.5) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: dgTextShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes dgBrandEntry {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Left-to-right subtle glow sweep across text */
+@keyframes dgTextShimmer {
+  0%   { background-position: 100% 50%; }
+  100% { background-position: -100% 50%; }
+}
