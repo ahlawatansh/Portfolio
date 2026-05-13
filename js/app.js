@@ -59,10 +59,38 @@
 
     // --- Projects: staggered reveal + horizontal scroll ---
     const cards=document.querySelectorAll('.project-card');
-    cards.forEach((c,i)=>{
-      gsap.to(c,{opacity:1,y:0,duration:0.6,delay:i*0.1,ease:'power3.out',scrollTrigger:{trigger:'#projects',start:'top 60%'}});
-    });
-    if(window.innerWidth>768){
+    const isMobile=window.innerWidth<=768;
+    if(isMobile){
+      // On mobile: make cards visible immediately
+      cards.forEach(c=>{c.style.opacity='1';c.style.transform='none';});
+      // GSAP-driven auto horizontal scroll on mobile (scroll-triggered)
+      const carousel=document.getElementById('projectsCarousel');
+      const wrapper=document.querySelector('.projects__carousel-wrapper');
+      if(carousel&&wrapper){
+        setTimeout(()=>{
+          const scrollDist=carousel.scrollWidth-wrapper.clientWidth;
+          if(scrollDist>0){
+            gsap.to(carousel,{
+              x:-scrollDist,
+              ease:'none',
+              scrollTrigger:{
+                trigger:'#projects',
+                start:'top top',
+                end:()=>`+=${scrollDist+300}`,
+                pin:true,
+                scrub:0.6,
+                invalidateOnRefresh:true,
+                anticipatePin:1
+              }
+            });
+          }
+        },500);
+      }
+    } else {
+      // On desktop: staggered reveal + GSAP horizontal scroll
+      cards.forEach((c,i)=>{
+        gsap.to(c,{opacity:1,y:0,duration:0.6,delay:i*0.1,ease:'power3.out',scrollTrigger:{trigger:'#projects',start:'top 60%'}});
+      });
       const carousel=document.getElementById('projectsCarousel');
       const wrapper=document.querySelector('.projects__carousel-wrapper');
       if(carousel&&wrapper){

@@ -25,8 +25,8 @@
   // Create SVG
   const svg = document.createElementNS(svgNS, 'svg');
   svg.setAttribute('viewBox', '0 0 520 520');
-  svg.setAttribute('width', '520');
-  svg.setAttribute('height', '520');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
   svg.style.overflow = 'visible';
   svg.id = 'radarSvg';
 
@@ -88,13 +88,13 @@
     svg.appendChild(line);
 
     // Label
-    const labelPos = polarToXY(angle, maxR + 35);
+    const labelPos = polarToXY(angle, maxR + 45);
     const text = document.createElementNS(svgNS, 'text');
     text.setAttribute('x', labelPos.x); text.setAttribute('y', labelPos.y);
     text.setAttribute('text-anchor', 'middle'); text.setAttribute('dominant-baseline', 'central');
     text.setAttribute('fill', 'rgba(220,200,230,0.85)');
-    text.setAttribute('font-family', "'DM Sans', sans-serif"); text.setAttribute('font-size', '13');
-    text.setAttribute('font-weight', '400');
+    text.setAttribute('font-family', "'DM Sans', sans-serif"); text.setAttribute('font-size', '15');
+    text.setAttribute('font-weight', '500');
     text.setAttribute('data-skill-index', i);
     text.classList.add('radar-label');
 
@@ -114,7 +114,7 @@
 
     // Vertex dot
     const dot = document.createElementNS(svgNS, 'circle');
-    dot.setAttribute('r', '4');
+    dot.setAttribute('r', '5');
     dot.setAttribute('fill', '#DD0E3F');
     dot.setAttribute('filter', 'url(#glow)');
     dot.classList.add('radar-dot');
@@ -137,7 +137,7 @@
   const strokePoly = document.createElementNS(svgNS, 'polygon');
   strokePoly.setAttribute('fill', 'none');
   strokePoly.setAttribute('stroke', '#DD0E3F');
-  strokePoly.setAttribute('stroke-width', '2');
+  strokePoly.setAttribute('stroke-width', '2.5');
   strokePoly.setAttribute('filter', 'url(#glow)');
   strokePoly.classList.add('radar-stroke');
   strokePoly.setAttribute('points', initPoints);

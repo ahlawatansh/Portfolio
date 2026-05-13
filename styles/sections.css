@@ -96,11 +96,12 @@
 .radar-fill{animation:radarBreathe 4s ease-in-out infinite}
 @keyframes radarBreathe{0%,100%{opacity:0.4}50%{opacity:0.6}}
 
+
 /* EXPERIENCE */
 #experience{padding:var(--section-padding) 0;position:relative}
 .experience__header{text-align:center;margin-bottom:4rem}
 .timeline{position:relative;max-width:900px;margin:0 auto}
-.timeline::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--accent),var(--glass-border),transparent)}
+.timeline::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:1px;background:var(--accent)}
 .timeline__item{position:relative;padding:2rem 0;display:grid;grid-template-columns:1fr 1fr;gap:2rem;opacity:0;transform:translateY(30px)}
 .timeline__item:nth-child(odd) .timeline__card{grid-column:1;margin:0 0 0 auto}
 .timeline__item:nth-child(even) .timeline__card{grid-column:2;margin:0 auto 0 0}
@@ -214,3 +215,26 @@
 .bottom-dock__btn--hire{color:var(--accent)}
 .bottom-dock__btn--hire:hover{color:var(--accent);background:var(--offwhite)}
 .bottom-dock__divider{width:1px;height:20px;background:rgba(255,255,255,0.1);margin:0 0.25rem}
+
+/* SEND-VIA MODAL */
+.send-modal{position:fixed;inset:0;z-index:10002;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity 0.3s ease,visibility 0.3s ease;padding:1rem}
+.send-modal.active{opacity:1;visibility:visible}
+.send-modal__backdrop{position:absolute;inset:0;background:rgba(8,8,16,0.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.send-modal__card{position:relative;max-width:420px;width:100%;padding:2.5rem 2rem 2rem;background:rgba(18,18,36,0.85);border:1px solid var(--glass-border);border-radius:var(--radius-lg);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);text-align:center;transform:translateY(30px) scale(0.95);transition:transform 0.4s var(--ease-out-expo);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 40px rgba(221,14,63,0.08)}
+.send-modal.active .send-modal__card{transform:translateY(0) scale(1)}
+.send-modal__close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);color:var(--offwhite-dim);transition:all var(--transition-fast);cursor:pointer}
+.send-modal__close:hover{background:rgba(221,14,63,0.15);border-color:rgba(221,14,63,0.3);color:var(--accent)}
+.send-modal__title{font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--offwhite);margin-bottom:0.4rem}
+.send-modal__desc{font-family:var(--font-body);font-size:0.85rem;color:var(--offwhite-muted);margin-bottom:2rem}
+.send-modal__options{display:flex;gap:1rem}
+.send-modal__btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.6rem;padding:1.5rem 1rem;border-radius:var(--radius-md);background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);transition:all var(--transition-medium);cursor:pointer}
+.send-modal__btn:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.send-modal__btn--gmail:hover{border-color:rgba(221,14,63,0.3);background:rgba(221,14,63,0.08)}
+.send-modal__btn--whatsapp:hover{border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.08)}
+.send-modal__btn-icon{width:52px;height:52px;border-radius:14px;background:rgba(221,14,63,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent);transition:all var(--transition-fast)}
+.send-modal__btn-icon svg{width:26px;height:26px}
+.send-modal__btn-icon--green{background:rgba(34,197,94,0.1);color:#22c55e}
+.send-modal__btn--gmail:hover .send-modal__btn-icon{background:rgba(221,14,63,0.2);box-shadow:0 0 20px rgba(221,14,63,0.2)}
+.send-modal__btn--whatsapp:hover .send-modal__btn-icon--green{background:rgba(34,197,94,0.2);box-shadow:0 0 20px rgba(34,197,94,0.2)}
+.send-modal__btn-label{font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--offwhite)}
+.send-modal__btn-hint{font-family:var(--font-mono);font-size:0.65rem;color:var(--offwhite-muted);letter-spacing:0.05em}
